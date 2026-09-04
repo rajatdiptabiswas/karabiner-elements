@@ -25,3 +25,4 @@ git -C ~/.config/karabiner/assets/complex_modifications pull
 | --- | --- |
 | `caps_lock-to-ctrl` | Tap Caps Lock twice for Caps Lock; hold for Control. |
 | `spacebar-to-alt` | Tap Spacebar for Space; hold for Left Alt. |
+| `tab-hjkl-to-arrows` | Tap Tab for Tab; hold and press `h`/`j`/`k`/`l` for arrows. |
