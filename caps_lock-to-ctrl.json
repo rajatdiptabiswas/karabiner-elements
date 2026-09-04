@@ -1,55 +1,60 @@
 {
-    "description": "Press caps_lock twice to activate caps_lock otherwise if held_down use as left_control",
-    "manipulators": [
+    "title": "Caps Lock: tap twice = Caps Lock, hold = Control",
+    "rules": [
         {
-            "conditions": [
+            "description": "Tap Caps Lock twice for Caps Lock; hold for Control.",
+            "manipulators": [
                 {
-                    "name": "caps_lock pressed",
-                    "type": "variable_if",
-                    "value": 1
-                }
-            ],
-            "from": {
-                "key_code": "caps_lock",
-                "modifiers": { "optional": ["any"] }
-            },
-            "to": [{ "key_code": "caps_lock" }],
-            "type": "basic"
-        },
-        {
-            "from": {
-                "key_code": "caps_lock",
-                "modifiers": { "optional": ["any"] }
-            },
-            "parameters": { "basic.to_if_held_down_threshold_milliseconds": 0 },
-            "to": [
+                    "conditions": [
+                        {
+                            "name": "caps_lock pressed",
+                            "type": "variable_if",
+                            "value": 1
+                        }
+                    ],
+                    "from": {
+                        "key_code": "caps_lock",
+                        "modifiers": { "optional": ["any"] }
+                    },
+                    "to": [{ "key_code": "caps_lock" }],
+                    "type": "basic"
+                },
                 {
-                    "set_variable": {
-                        "name": "caps_lock pressed",
-                        "value": 1
-                    }
+                    "from": {
+                        "key_code": "caps_lock",
+                        "modifiers": { "optional": ["any"] }
+                    },
+                    "parameters": { "basic.to_if_held_down_threshold_milliseconds": 0 },
+                    "to": [
+                        {
+                            "set_variable": {
+                                "name": "caps_lock pressed",
+                                "value": 1
+                            }
+                        }
+                    ],
+                    "to_delayed_action": {
+                        "to_if_canceled": [
+                            {
+                                "set_variable": {
+                                    "name": "caps_lock pressed",
+                                    "value": 0
+                                }
+                            }
+                        ],
+                        "to_if_invoked": [
+                            {
+                                "set_variable": {
+                                    "name": "caps_lock pressed",
+                                    "value": 0
+                                }
+                            }
+                        ]
+                    },
+                    "to_if_held_down": [{ "key_code": "left_control" }],
+                    "type": "basic"
                 }
-            ],
-            "to_delayed_action": {
-                "to_if_canceled": [
-                    {
-                        "set_variable": {
-                            "name": "caps_lock pressed",
-                            "value": 0
-                        }
-                    }
-                ],
-                "to_if_invoked": [
-                    {
-                        "set_variable": {
-                            "name": "caps_lock pressed",
-                            "value": 0
-                        }
-                    }
-                ]
-            },
-            "to_if_held_down": [{ "key_code": "left_control" }],
-            "type": "basic"
+            ]
         }
     ]
 }
